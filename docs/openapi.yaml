@@ -1,0 +1,181 @@
+openapi: "3.0.0"
+externalDocs:
+  url: "https://github.com/reesvarney/hamlet"
+  description: ""
+servers:
+  - description: "Default server client port"
+    url: "https://127.0.0.1:5376"
+info:
+  title: "Hamlet Client API"
+  version: 0.0.1
+  description: "Client API for the Hamlet protocol."
+
+  license:
+    name: "MIT License"
+    url: "https://github.com/reesvarney/hamlet/blob/main/LICENSE"
+paths:
+  /information:
+    get:
+      tags:
+        - Hamlet
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  contact:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                      website:
+                        type: string
+                      lodge_url:
+                        type: string
+                  version:
+                    type: object
+                    properties:
+                      major:
+                        type: integer
+                      minor:
+                        type: integer
+                      patch:
+                        type: integer
+          description: The response data
+  /lodges:
+    get:
+      tags:
+        - Hamlet
+      responses:
+        200:
+          description: The response data
+  /auth/challenge:
+    get:
+      tags:
+        - Authentication
+      description: "Get the login challenge data"
+      responses:
+        200:
+          description: ""
+    post:
+      tags:
+        - Authentication
+      description: "Respond with the decoded challenge answer"
+      responses:
+        200:
+          description: ""
+
+  /users/{USER_ID}:
+    parameters:
+      - in: path
+        name: USER_ID
+        description: The ID of the user
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - User
+      responses:
+        200:
+          description: The response data
+  /lodge/{LODGE_ID}:
+    parameters:
+      - in: path
+        name: LODGE_ID
+        description: The ID of the lodge
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Lodge
+      responses:
+        200:
+          description: The response data
+  /lodge/{LODGE_ID}/rooms:
+    parameters:
+      - in: path
+        name: LODGE_ID
+        description: The ID of the lodge
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Lodge
+      responses:
+        200:
+          description: The response data
+  /lodge/{LODGE_ID}/rooms/{ROOM_ID}:
+    parameters:
+      - in: path
+        name: LODGE_ID
+        description: The ID of the lodge
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: ROOM_ID
+        description: The ID of the room
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Room
+      responses:
+        200:
+          description: The response data
+  /lodge/{LODGE_ID}/rooms/{ROOM_ID}/enter:
+    parameters:
+      - in: path
+        name: LODGE_ID
+        description: The ID of the lodge
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: ROOM_ID
+        description: The ID of the room
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Room
+      responses:
+        200:
+          description: The response data
+  /lodge/{LODGE_ID}/rooms/{ROOM_ID}/leave:
+    parameters:
+      - in: path
+        name: LODGE_ID
+        description: The ID of the lodge
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: ROOM_ID
+        description: The ID of the room
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Room
+      responses:
+        200:
+          description: The response data
+
+  /permissions:
+    post:
+      tags:
+        - Permissions
+      responses:
+        200:
+          description: The response data
